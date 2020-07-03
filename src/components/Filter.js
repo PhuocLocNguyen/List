@@ -1,22 +1,21 @@
 import React, {Component} from 'react';
 import {StyleSheet, View} from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
-import {Icon} from 'react-native-elements';
+import {connect} from 'react-redux';
 class Filter extends Component {
   render() {
     return (
       <View style={styles.containerPickerStyle}>
         <RNPickerSelect
           value={this.props.filterMode}
-          onValueChange={value => this.props.onSetFilterMode(value)}
+          onValueChange={value =>
+            this.props.dispatch({type: 'SET_FILTER_MODE', newfilterMode: value})
+          }
           items={[
             {label: 'Show All', value: 'Show_All'},
             {label: 'Show Forgot', value: 'Show_Forgot'},
             {label: 'Show Memorized', value: 'Show_Memorized'},
           ]}
-          Icon={() => {
-            return <Icon name="sc-telegram" type="evilicon" color="#517fa4" />;
-          }}
         />
       </View>
     );
@@ -32,4 +31,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
 });
-export default Filter;
+const mapStateToProps = function(state) {
+  return {filterMode: state.filterMode};
+};
+export default connect(mapStateToProps)(Filter);

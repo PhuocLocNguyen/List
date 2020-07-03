@@ -3,37 +3,49 @@ import {Text, View, TouchableOpacity, FlatList, StyleSheet} from 'react-native';
 import {connect} from 'react-redux';
 class ItemList extends Component {
   itemFlatList = (item, index) => {
-    return (
-      <View style={styles.itemFlatListGroup}>
-        <View style={styles.textGroup}>
-          <Text style={styles.textEn}>{item.en}</Text>
-          <Text style={styles.textVn}>
-            {item.isMemorized ? '----' : item.vn}
-          </Text>
-        </View>
-
-        <View style={styles.textGroup}>
-          <TouchableOpacity
-            onPress={() =>
-              this.props.dispatch({type: 'TOGGLE_MEMORIZED', id: item.id})
-            }
-            style={
-              item.isMemorized
-                ? styles.touchableFogot
-                : styles.touchableIsMemorized
-            }>
-            <Text style={styles.textItemFlatList}>
-              {item.isMemorized ? 'Forgot' : 'IsMemorized'}
+    const {filterMode} = this.props;
+    // Cac truong hop phai return giao dien
+    // Th1 : Show_All
+    // Th2 : Show_Forgot va item.memorized
+    // Th3 : Show_memorized va !item.memorized
+    if (filterMode === 'Show_Forgot' && !item.isMemorized) {
+      console.log('1');
+      return null;
+    } else if (filterMode === 'Show_Memorized' && item.isMemorized) {
+      return null;
+    } else {
+      return (
+        <View style={styles.itemFlatListGroup}>
+          <View style={styles.textGroup}>
+            <Text style={styles.textEn}>{item.en}</Text>
+            <Text style={styles.textVn}>
+              {item.isMemorized ? '----' : item.vn}
             </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => this.props.dispatch({type: 'REMOVE', id: item.id})}
-            style={styles.touchableRemove}>
-            <Text style={styles.textItemFlatList}>Remove</Text>
-          </TouchableOpacity>
+          </View>
+
+          <View style={styles.textGroup}>
+            <TouchableOpacity
+              onPress={() =>
+                this.props.dispatch({type: 'TOGGLE_MEMORIZED', id: item.id})
+              }
+              style={
+                item.isMemorized
+                  ? styles.touchableFogot
+                  : styles.touchableIsMemorized
+              }>
+              <Text style={styles.textItemFlatList}>
+                {item.isMemorized ? 'Forgot' : 'IsMemorized'}
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => this.props.dispatch({type: 'REMOVE', id: item.id})}
+              style={styles.touchableRemove}>
+              <Text style={styles.textItemFlatList}>Remove</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
-    );
+      );
+    }
   };
   render() {
     return (
@@ -103,6 +115,6 @@ const styles = StyleSheet.create({
   },
 });
 const mapStateToProps = function(state) {
-  return {words: state.words};
+  return {words: state.words, filterMode: state.filterMode};
 };
 export default connect(mapStateToProps)(ItemList);

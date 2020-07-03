@@ -3,12 +3,14 @@ import {View, StyleSheet} from 'react-native';
 import Form from './Form';
 import ItemList from './ItemList';
 import {connect} from 'react-redux';
+import Filter from './Filter';
 
 class List extends Component {
   render() {
     return (
       <View style={styles.containerList}>
         <Form />
+        <Filter />
         <ItemList />
       </View>
     );
