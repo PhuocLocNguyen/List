@@ -7,6 +7,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import {connect} from 'react-redux';
+import {actionCreator} from '../redux/action/actionCreator';
 
 class Form extends Component {
   constructor(props) {
@@ -16,16 +17,13 @@ class Form extends Component {
       vn: '',
     };
   }
-  toggleForm = () =>{
-    this.props.dispatch({type: 'TOGGLE_FORM'});
-  };
   addWord = () => {
     const {en, vn} = this.state;
     if (!en || !vn) {
       alert('ban chua truyen du thong tin');
       return;
     }
-    this.props.dispatch({type: 'ADD_WORD', en, vn});
+    this.props.onAddWord(en, vn);
     this.setState({en: '', vn: ''});
     this.inputEn.clear();
     this.inputVn.clear();
@@ -53,7 +51,7 @@ class Form extends Component {
               <Text style={styles.textTouchableForm}>Add Word</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => this.toggleForm()}
+              onPress={() => this.props.onToggleForm()}
               style={styles.touchableCancel}>
               <Text style={styles.textTouchableForm}>Cancel</Text>
             </TouchableOpacity>
@@ -63,7 +61,7 @@ class Form extends Component {
     } else {
       return (
         <TouchableOpacity
-          onPress={() => this.toggleForm()}
+          onPress={() => this.props.onToggleForm()}
           style={styles.touchableShowForm}>
           <Text style={styles.textTouchableForm}>+</Text>
         </TouchableOpacity>
@@ -118,4 +116,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = function(state) {
   return {shouldShowForm: state.shouldShowForm};
 };
-export default connect(mapStateToProps)(Form);
+export default connect(
+  mapStateToProps,
+  actionCreator,
+)(Form);

@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {Text, View, TouchableOpacity, FlatList, StyleSheet} from 'react-native';
 import {connect} from 'react-redux';
+import {actionCreator} from '../redux/action/actionCreator';
+
 class ItemList extends Component {
   itemFlatList = (item, index) => {
     const {filterMode} = this.props;
@@ -25,9 +27,7 @@ class ItemList extends Component {
 
           <View style={styles.textGroup}>
             <TouchableOpacity
-              onPress={() =>
-                this.props.dispatch({type: 'TOGGLE_MEMORIZED', id: item.id})
-              }
+              onPress={() => this.props.onToggleMemorized(item.id)}
               style={
                 item.isMemorized
                   ? styles.touchableFogot
@@ -38,7 +38,7 @@ class ItemList extends Component {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => this.props.dispatch({type: 'REMOVE', id: item.id})}
+              onPress={() => this.props.onRemove(item.id)}
               style={styles.touchableRemove}>
               <Text style={styles.textItemFlatList}>Remove</Text>
             </TouchableOpacity>
@@ -117,4 +117,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = function(state) {
   return {words: state.words, filterMode: state.filterMode};
 };
-export default connect(mapStateToProps)(ItemList);
+export default connect(
+  mapStateToProps,
+  actionCreator,
+)(ItemList);

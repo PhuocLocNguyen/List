@@ -12,6 +12,7 @@
   "dependencies": {
     "react": "16.11.0",
     "react-native": "0.62.2",
+    "react-native-modal-dropdown": "^0.7.0",
     "react-native-picker-select": "^7.0.0"
   },
   "devDependencies": {
@@ -28,5 +29,8 @@
   },
   "jest": {
     "preset": "react-native"
+  },
+  "resolutions": {
+    "deprecated-react-native-listview": "0.0.6"
   }
 }
