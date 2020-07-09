@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import {connect} from 'react-redux';
 import {actionCreator} from '../redux/action/actionCreator';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 
 class Form extends Component {
   constructor(props) {
@@ -74,7 +75,7 @@ class Form extends Component {
 }
 const styles = StyleSheet.create({
   containerForm: {
-    flex: 1,
+    flex: 4,
   },
   viewTextInput: {
     flex: 2,

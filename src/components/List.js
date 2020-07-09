@@ -4,6 +4,7 @@ import Form from './Form';
 import ItemList from './ItemList';
 import {connect} from 'react-redux';
 import Filter from './Filter';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 
 class List extends Component {
   render() {

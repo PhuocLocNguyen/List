@@ -65,7 +65,7 @@ class ItemList extends Component {
 }
 const styles = StyleSheet.create({
   containerFlatList: {
-    flex: 2,
+    flex: 6,
   },
   itemFlatListGroup: {
     height: 120,
