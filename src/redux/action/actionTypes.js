@@ -3,6 +3,7 @@ const REMOVE = 'REMOVE';
 const ADD_WORD = 'ADD_WORD';
 const TOGGLE_FORM = 'TOGGLE_FORM';
 const SET_FILTER_MODE = 'SET_FILTER_MODE';
+const FETCH_DATA_WORD = 'FETCH_DATA_WORD';
 
 export const actionType = {
   TOGGLE_MEMORIZED,
@@ -10,4 +11,5 @@ export const actionType = {
   ADD_WORD,
   TOGGLE_FORM,
   SET_FILTER_MODE,
+  FETCH_DATA_WORD,
 };

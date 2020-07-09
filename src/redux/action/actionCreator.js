@@ -1,4 +1,23 @@
 import {actionType} from './actionTypes';
+import axios from 'axios';
+import EndpointFactory from 'axios-endpoints';
+
+const axiosInstance = axios.create({
+  baseURL: 'https://servernode1862020.herokuapp.com',
+});
+
+const Endpoint = EndpointFactory(axiosInstance);
+
+const wordEndPoint = new Endpoint('/word');
+
+function fetchDataWords() {
+  return dispatch => {
+    wordEndPoint
+      .get()
+      .then(reponse => console.log(reponse.data))
+      .catch(error => console.log(error.message));
+  };
+}
 
 function onToggleMemorized(id) {
   return {type: actionType.TOGGLE_MEMORIZED, id};
@@ -22,4 +41,5 @@ export const actionCreator = {
   onAddWord,
   onToggleForm,
   onSetFilterMode,
+  fetchDataWords,
 };

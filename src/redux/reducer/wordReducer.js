@@ -8,6 +8,8 @@ const defaultWords = [
 
 export default function wordReducer(state = defaultWords, action) {
   switch (action.type) {
+    case 'FETCH_DATA_WORD':
+      return action.words;
     case 'ADD_WORD':
       const newWordsAdd = [...state];
       const newWordAdd = {

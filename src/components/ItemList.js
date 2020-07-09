@@ -4,6 +4,9 @@ import {connect} from 'react-redux';
 import {actionCreator} from '../redux/action/actionCreator';
 
 class ItemList extends Component {
+  componentDidMount() {
+    this.props.fetchDataWords();
+  }
   itemFlatList = (item, index) => {
     const {filterMode} = this.props;
     // Cac truong hop phai return giao dien
