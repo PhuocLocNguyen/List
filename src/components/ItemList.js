@@ -14,7 +14,6 @@ class ItemList extends Component {
     // Th2 : Show_Forgot va item.memorized
     // Th3 : Show_memorized va !item.memorized
     if (filterMode === 'Show_Forgot' && !item.isMemorized) {
-      console.log('1');
       return null;
     } else if (filterMode === 'Show_Memorized' && item.isMemorized) {
       return null;
@@ -30,7 +29,9 @@ class ItemList extends Component {
 
           <View style={styles.textGroup}>
             <TouchableOpacity
-              onPress={() => this.props.onToggleMemorized(item.id)}
+              onPress={() =>
+                this.props.onToggleMemorized(item._id, item.isMemorized)
+              }
               style={
                 item.isMemorized
                   ? styles.touchableFogot
@@ -41,7 +42,7 @@ class ItemList extends Component {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => this.props.onRemove(item.id)}
+              onPress={() => this.props.onRemove(item._id)}
               style={styles.touchableRemove}>
               <Text style={styles.textItemFlatList}>Remove</Text>
             </TouchableOpacity>
@@ -55,7 +56,7 @@ class ItemList extends Component {
       <View style={styles.containerFlatList}>
         <FlatList
           extraData={this.props.words}
-          keyExtractor={(item, index) => item.id.toString()}
+          keyExtractor={(item, index) => item._id.toString()}
           data={this.props.words}
           renderItem={({item, index}) => this.itemFlatList(item, index)}
           ItemSeparatorComponent={() => {

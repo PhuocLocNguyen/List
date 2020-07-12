@@ -1,29 +1,16 @@
-const defaultWords = [
-  {id: 1, en: 'One', vn: 'Mot', isMemorized: true},
-  {id: 2, en: 'Two', vn: 'Hai', isMemorized: false},
-  {id: 3, en: 'Three', vn: 'Ba', isMemorized: false},
-  {id: 4, en: 'Four', vn: 'Bon', isMemorized: false},
-  {id: 5, en: 'Five', vn: 'Nam', isMemorized: true},
-];
-
-export default function wordReducer(state = defaultWords, action) {
+export default function wordReducer(state = [], action) {
   switch (action.type) {
     case 'FETCH_DATA_WORD':
       return action.words;
+
     case 'ADD_WORD':
       const newWordsAdd = [...state];
-      const newWordAdd = {
-        id: state.length + 1,
-        en: action.en,
-        vn: action.vn,
-        isMemorized: false,
-      };
-      newWordsAdd.unshift(newWordAdd);
+      newWordsAdd.unshift(action.word);
       return newWordsAdd;
 
     case 'TOGGLE_MEMORIZED':
       const newWordsToggleMemorized = state.map(word => {
-        if (word.id === action.id) {
+        if (word._id === action.word._id) {
           const newWordToggleMemorized = {
             ...word,
             isMemorized: !word.isMemorized,
@@ -35,7 +22,7 @@ export default function wordReducer(state = defaultWords, action) {
       return newWordsToggleMemorized;
 
     case 'REMOVE':
-      const newWordsRemove = state.filter(word => action.id !== word.id);
+      const newWordsRemove = state.filter(word => action.word._id !== word._id);
       return newWordsRemove;
 
     default:
